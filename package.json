@@ -1,0 +1,45 @@
+{
+  "name": "hapi-crud-acl",
+  "version": "0.0.5",
+  "description": "Hapi Crud Plugin",
+  "engines": {
+    "node": ">= 10.13 <11"
+  },
+  "main": "./lib/src/index.js",
+  "types": "./lib/src/index.d.ts",
+  "devDependencies": {
+    "@types/hapi__boom": "^7.4.0",
+    "@types/hapi__hapi": "^18.2.5",
+    "@types/jest": "^24.0.17",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^12.7.1",
+    "jest": "~24.8.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "tsutils": "^3.17.1",
+    "typescript": "^3.5.3"
+  },
+  "files": ["lib"],
+  "scripts": {
+    "clean": "rimraf coverage lib tmp",
+    "build": "tsc -p tsconfig.release.json",
+    "build:watch": "tsc -w -p tsconfig.release.json",
+    "lint": "tslint -t stylish --project \"tsconfig.json\"",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "prepare": "npm run clean && npm run build",
+    "prepublishOnly": "npm test && npm run lint"
+  },
+  "author": "Wigger Boelens",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/boom": "^7.4.2",
+    "@hapi/hapi": "^18.3.1",
+    "lodash": "^4.17.15",
+    "tslib": "^1.10.0"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "hapi-crud-acl",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Hapi Crud Plugin",
   "engines": {
     "node": ">= 10.13"
@@ -23,9 +23,7 @@
     "tsutils": "^3.17.1",
     "typescript": "^3.7.4"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "scripts": {
     "clean": "rimraf coverage lib tmp",
     "build": "tsc -p tsconfig.release.json",

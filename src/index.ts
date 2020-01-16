@@ -1,7 +1,9 @@
-'use strict'
+import { join } from 'path'
 import * as Hapi from '@hapi/hapi'
-import * as Boom from '@hapi/boom' // error handling https://github.com/hapijs/boom
-const pkg = require('../package.json')
+import * as Boom from '@hapi/boom' // error handling
+
+// tslint:disable-next-line
+const pkg = require(join(__dirname, '..', 'package.json'))
 
 import PluginOptions from './PluginOptions'
 

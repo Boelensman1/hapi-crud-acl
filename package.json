@@ -1,6 +1,6 @@
 {
   "name": "hapi-crud-acl",
-  "version": "0.0.8",
+  "version": "0.0.14",
   "description": "Hapi Crud Plugin",
   "engines": {
     "node": ">= 10.13"
@@ -16,6 +16,7 @@
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
+    "shx": "^0.3.2",
     "ts-jest": "^24.3.0",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
@@ -26,7 +27,7 @@
   "files": ["lib"],
   "scripts": {
     "clean": "rimraf coverage lib tmp",
-    "build": "tsc -p tsconfig.release.json",
+    "build": "tsc -p tsconfig.release.json && shx sed -i 's/\"files\":/\"_files\":/' lib/package.json",
     "build:watch": "tsc -w -p tsconfig.release.json",
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "test": "jest --coverage",

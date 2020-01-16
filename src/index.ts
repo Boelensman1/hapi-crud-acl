@@ -34,7 +34,7 @@ const name = 'hapiCrudAcl'
  * specify peer dependency on hapi, enforced by hapi at runtime
  */
 exports.plugin.requirements = {
-  hapi: '>=17',
+  hapi: '>=19',
 }
 
 const hasPermission = (required: any, has: any) => {

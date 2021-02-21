@@ -4,7 +4,7 @@ import * as pkg from '../package.json'
 
 import PluginOptions from './PluginOptions'
 
-let internals = {
+const internals = {
   implementation: null,
   permissionsFunc: null,
 } // see: http://hapijs.com/styleguide#module-globals

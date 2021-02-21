@@ -22,7 +22,7 @@ describe('Implementation', () => {
   it('Should give access', async () => {
     const server = new Hapi.Server()
 
-    const permissionsFunc = (_perms: any) => {
+    const permissionsFunc = () => {
       return {
         cars: {
           read: true,
@@ -69,7 +69,7 @@ describe('Implementation', () => {
   it('Should not give access', async () => {
     const server = new Hapi.Server()
 
-    const permissionsFunc = (_perms: any) => {
+    const permissionsFunc = () => {
       return {
         cars: {
           read: true,
@@ -115,7 +115,7 @@ describe('Implementation', () => {
   it('Should not give access', async () => {
     const server = new Hapi.Server()
 
-    const permissionsFunc = (_perms: any) => {
+    const permissionsFunc = () => {
       return {
         cars: {
           read: false,
@@ -161,7 +161,7 @@ describe('Implementation', () => {
   it('Should give access', async () => {
     const server = new Hapi.Server()
 
-    const permissionsFunc = (_perms: any) => {
+    const permissionsFunc = () => {
       return {
         cars: {
           read: true,

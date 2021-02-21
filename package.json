@@ -7,6 +7,10 @@
   },
   "main": "./lib/src/index.js",
   "types": "./lib/src/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Boelensman1/hapi-crud-acl.git"
+  },
   "devDependencies": {
     "@types/hapi__boom": "^9.0.0",
     "@types/hapi__hapi": "^20.0.5",

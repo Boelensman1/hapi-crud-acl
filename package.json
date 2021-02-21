@@ -1,6 +1,6 @@
 {
   "name": "hapi-crud-acl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hapi Crud Plugin",
   "engines": {
     "node": ">= 10.13"

@@ -32,7 +32,7 @@
     "clean": "rimraf coverage lib tmp",
     "build": "tsc -p tsconfig.release.json && shx sed -i 's/\"files\":/\"_files\":/' lib/package.json",
     "build:watch": "tsc -w -p tsconfig.release.json",
-    "lint": "eslint .",
+    "lint": "eslint . && prettier --check .",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "prepare": "npm run clean && npm run build",

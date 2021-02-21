@@ -17,7 +17,7 @@ You can protect this route with: `['drivers:create', 'cars:read']`
 
 ### Hapi-Route-ACL
 
-This project is a rewrite of [hapi-route-acl](https://github.com/eventhough/hapi-route-acl) to which I give great thanks for the inspiration. I also stole his readme.
+This project is a rewrite of [hapi-route-acl](https://github.com/eventhough/hapi-route-acl) to which I give great thanks for the inspiration. This readme is also stolen (with a few changes where applicable) from that project.
 
 ## Usage
 

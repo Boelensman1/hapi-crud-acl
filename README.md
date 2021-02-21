@@ -158,8 +158,8 @@ Keys are route names and values are objects that map each crud type to a boolean
     make: true,
     look: true,
     edit: true,
-    remove: true
-    duplicate: true
+    remove: true,
+    duplicate: true,
     retract: true
   },
 };

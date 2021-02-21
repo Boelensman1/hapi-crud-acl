@@ -28,6 +28,45 @@ describe('Implementation', () => {
     }
     await expect(register()).rejects.toThrow(PermissionsFuncMissingError)
   })
+  it('Should error when permissions are malformed', async () => {
+    const server = new Hapi.Server()
+
+    const permissionsFunc = () => ({})
+
+    await server.register({
+      plugin: HapiCrudACL,
+      options: {
+        permissionsFunc,
+      },
+    })
+
+    const handler = async (_request: Hapi.Request, h: Hapi.ResponseToolkit) => {
+      return h.response('hoi')
+    }
+
+    server.route({
+      method: 'GET',
+      path: '/malformed-permissions',
+      options: {
+        handler,
+        tags: ['api', 'tasks'],
+        description: 'Get task by id.',
+        plugins: {
+          hapiCrudAcl: {
+            permissions: ['malformed'], // no required permissions
+          },
+        },
+      },
+    })
+
+    const res = await server.inject({
+      method: 'GET',
+      url: '/malformed-permissions',
+    })
+
+    // TODO: more specific error checking
+    expect(res.statusCode).toBe(500)
+  })
 
   it('If plugin is not active on a route, the route should give access', async () => {
     const server = new Hapi.Server()
@@ -62,7 +101,7 @@ describe('Implementation', () => {
     expect(res.statusCode).toBe(200)
   })
 
-  it('Should give access', async () => {
+  it('Should give access when required permissions list is empty', async () => {
     const server = new Hapi.Server()
 
     const permissionsFunc = () => {
@@ -109,7 +148,7 @@ describe('Implementation', () => {
     expect(res.statusCode).toBe(200)
   })
 
-  it('Should not give access', async () => {
+  it('Should not give access if permission is missing', async () => {
     const server = new Hapi.Server()
 
     const permissionsFunc = () => {
@@ -155,7 +194,7 @@ describe('Implementation', () => {
     })
     expect(res.statusCode).toBe(401)
   })
-  it('Should not give access', async () => {
+  it('Should not give access if permission is set to false', async () => {
     const server = new Hapi.Server()
 
     const permissionsFunc = () => {
@@ -201,7 +240,7 @@ describe('Implementation', () => {
     })
     expect(res.statusCode).toBe(401)
   })
-  it('Should give access', async () => {
+  it('Should give access when permissions match', async () => {
     const server = new Hapi.Server()
 
     const permissionsFunc = () => {

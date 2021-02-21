@@ -11,6 +11,11 @@ export class PermissionsFuncMissingError extends Error {
   message = 'permissionsFunc is required'
 }
 
+export class MalFormedPermissionsError extends Error {
+  message =
+    'permission must be formatted: [routeName]:[create|read|update|delete]'
+}
+
 interface ExtendedHapiPluginConf extends Hapi.PluginSpecificConfiguration {
   hapiCrudAcl: PluginSettings
 }
@@ -51,6 +56,9 @@ const hasPermission = (required: string[], has: Permissions) => {
   return required
     .map((permission: string) => permission.split(':'))
     .every(([name, crud]: [string, string]): boolean => {
+      if (!crud) {
+        throw new MalFormedPermissionsError()
+      }
       if (!has[name]) {
         return false
       }

@@ -4,6 +4,10 @@ import * as pkg from '../package.json'
 
 import PluginOptions from './PluginOptions'
 
+export class PermissionsFuncMissingError extends Error {
+  message = 'permissionsFunc is required'
+}
+
 const internals = {
   implementation: null,
   permissionsFunc: null,
@@ -12,7 +16,7 @@ const internals = {
 exports.plugin = {
   register: (server: Hapi.Server, options: PluginOptions) => {
     if (!options.permissionsFunc) {
-      throw Error('permissionsFunc is required')
+      throw new PermissionsFuncMissingError()
     }
     internals.permissionsFunc = options.permissionsFunc
     server.ext({ type: 'onPostAuth', method: internals.implementation })
@@ -59,7 +63,7 @@ internals.implementation = async (
 
   const requiredPermissions = settings.permissions
   // check if we have permissions set
-  if (!requiredPermissions) {
+  if (!requiredPermissions || requiredPermissions.length === 0) {
     return h.continue
   }
 

@@ -1,4 +1,4 @@
-import HapiCrudACL from '../src/'
+import HapiCrudACL, { PermissionsFuncMissingError } from '../src/'
 import * as Hapi from '@hapi/hapi'
 
 describe('Registration', () => {
@@ -17,8 +17,51 @@ describe('Registration', () => {
 })
 
 describe('Implementation', () => {
-  // it('The plugin registers', async () => {
-  // it('The plugin registers', async () => {
+  it('Should error when permissions function is missig', async () => {
+    const server = new Hapi.Server()
+
+    const register = () => {
+      return server.register({
+        plugin: HapiCrudACL,
+        options: {},
+      })
+    }
+    await expect(register()).rejects.toThrow(PermissionsFuncMissingError)
+  })
+
+  it('If plugin is not active on a route, the route should give access', async () => {
+    const server = new Hapi.Server()
+
+    const permissionsFunc = () => ({})
+
+    await server.register({
+      plugin: HapiCrudACL,
+      options: {
+        permissionsFunc,
+      },
+    })
+
+    const handler = async (_request: Hapi.Request, h: Hapi.ResponseToolkit) => {
+      return h.response('hoi')
+    }
+
+    server.route({
+      method: 'GET',
+      path: '/plugin-not-active',
+      options: {
+        handler,
+        tags: ['api', 'tasks'],
+        description: 'Get task by id.',
+      },
+    })
+
+    const res = await server.inject({
+      method: 'GET',
+      url: '/plugin-not-active',
+    })
+    expect(res.statusCode).toBe(200)
+  })
+
   it('Should give access', async () => {
     const server = new Hapi.Server()
 
@@ -46,14 +89,14 @@ describe('Implementation', () => {
 
     server.route({
       method: 'GET',
-      path: '/unprotected2',
+      path: '/unprotected',
       options: {
         handler,
         tags: ['api', 'tasks'],
         description: 'Get task by id.',
         plugins: {
           hapiCrudAcl: {
-            permissions: [],
+            permissions: [], // no required permissions
           },
         },
       },
@@ -61,7 +104,7 @@ describe('Implementation', () => {
 
     const res = await server.inject({
       method: 'GET',
-      url: '/unprotected2',
+      url: '/unprotected',
     })
     expect(res.statusCode).toBe(200)
   })

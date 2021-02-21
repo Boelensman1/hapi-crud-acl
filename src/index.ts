@@ -16,9 +16,8 @@ interface ExtendedHapiPluginConf extends Hapi.PluginSpecificConfiguration {
 }
 
 const internals: Internals = {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  permissionsFunc: () => ({}),
-  implementation: () => ({}),
+  permissionsFunc: /* istanbul ignore next */ () => ({}),
+  implementation: /* istanbul ignore next */ () => ({}),
 }
 
 exports.plugin = {

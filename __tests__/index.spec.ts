@@ -68,9 +68,9 @@ describe('Implementation', () => {
     const permissionsFunc = () => {
       return {
         cars: {
+          create: true,
           read: true,
-          write: true,
-          edit: true,
+          update: true,
           delete: true,
         },
       }
@@ -115,9 +115,9 @@ describe('Implementation', () => {
     const permissionsFunc = () => {
       return {
         cars: {
+          create: true,
           read: true,
-          write: true,
-          edit: true,
+          update: true,
           delete: true,
         },
       }
@@ -143,7 +143,7 @@ describe('Implementation', () => {
         description: 'Get task by id.',
         plugins: {
           hapiCrudAcl: {
-            permissions: ['cars:read', 'trucks:write'],
+            permissions: ['cars:read', 'trucks:update'],
           },
         },
       },
@@ -161,9 +161,9 @@ describe('Implementation', () => {
     const permissionsFunc = () => {
       return {
         cars: {
+          create: true,
           read: false,
-          write: true,
-          edit: true,
+          update: true,
           delete: true,
         },
       }
@@ -207,9 +207,9 @@ describe('Implementation', () => {
     const permissionsFunc = () => {
       return {
         cars: {
+          create: true,
           read: true,
-          write: true,
-          edit: true,
+          update: true,
           delete: true,
         },
       }

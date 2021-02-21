@@ -2,16 +2,24 @@ import * as Hapi from '@hapi/hapi'
 import * as Boom from '@hapi/boom' // error handling
 import * as pkg from '../package.json'
 
-import PluginOptions from './PluginOptions'
+import Permissions from './types/Permissions'
+import PluginOptions from './types/PluginOptions'
+import PluginSettings from './types/PluginSettings'
+import Internals from './types/Internals'
 
 export class PermissionsFuncMissingError extends Error {
   message = 'permissionsFunc is required'
 }
 
-const internals = {
-  implementation: null,
-  permissionsFunc: null,
-} // see: http://hapijs.com/styleguide#module-globals
+interface ExtendedHapiPluginConf extends Hapi.PluginSpecificConfiguration {
+  hapiCrudAcl: PluginSettings
+}
+
+const internals: Internals = {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  permissionsFunc: () => ({}),
+  implementation: () => ({}),
+}
 
 exports.plugin = {
   register: (server: Hapi.Server, options: PluginOptions) => {
@@ -40,7 +48,7 @@ exports.plugin.requirements = {
   hapi: '>=19',
 }
 
-const hasPermission = (required: any, has: any) => {
+const hasPermission = (required: string[], has: Permissions) => {
   return required
     .map((permission: string) => permission.split(':'))
     .every(([name, crud]: [string, string]): boolean => {
@@ -55,13 +63,14 @@ internals.implementation = async (
   request: Hapi.Request,
   h: Hapi.ResponseToolkit,
 ) => {
-  const settings = request.route.settings.plugins[name]
+  const plugins = request.route.settings.plugins as ExtendedHapiPluginConf
   // check if the plugin is active on this route
-  if (!settings) {
+  if (!plugins || !plugins[name]) {
     return h.continue
   }
+  const pluginSettings = plugins[name]
 
-  const requiredPermissions = settings.permissions
+  const requiredPermissions = pluginSettings.permissions
   // check if we have permissions set
   if (!requiredPermissions || requiredPermissions.length === 0) {
     return h.continue

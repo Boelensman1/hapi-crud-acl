@@ -89,7 +89,7 @@ internals.implementation = async (
   if (hasPermission(requiredPermissions, userPermissions)) {
     return h.continue
   } else {
-    throw Boom.unauthorized('Access denied')
+    throw Boom.unauthorized()
   }
 }
 

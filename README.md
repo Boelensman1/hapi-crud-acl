@@ -1,4 +1,4 @@
-# Hapi Route ACL
+# Hapi Crud ACL
 
 Fine-grained route access control based on CRUD for [hapi.js](http://hapijs.com/)
 

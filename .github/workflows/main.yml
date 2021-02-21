@@ -9,7 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: codecov/codecov-action@v1
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
@@ -38,3 +37,4 @@ jobs:
     - run: npm run test
       env:
         CI: true
+    - uses: codecov/codecov-action@v1

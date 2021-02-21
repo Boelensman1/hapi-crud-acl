@@ -9,13 +9,14 @@ Fine-grained route access control based on CRUD for [hapi.js](http://hapijs.com/
 
 This hapi.js plugin allows you to specify ACL permission requirements for each of your routes using CRUD. For example let's say you have a resource called "cars". You could protect each route with the following permissions:
 
-`'cars:create'`, `'cars:read'`,  `'cars:update'`, `'cars:delete'`
+`'cars:create'`, `'cars:read'`, `'cars:update'`, `'cars:delete'`
 
 Routes can be protected by multiple permissions. For example you might have a route for drivers of cars that looks like: `POST /cars/1/drivers/`
 
 You can protect this route with: `['drivers:create', 'cars:read']`
 
 ### Hapi-Route-ACL
+
 This project is a rewrite of [hapi-route-acl](https://github.com/eventhough/hapi-route-acl) to which I give great thanks for the inspiration. I also stole his readme.
 
 ## Usage

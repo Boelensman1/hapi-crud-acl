@@ -5,35 +5,3 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: "@types/node"
-    versions:
-    - 14.14.22
-    - 14.14.24
-    - 14.14.25
-    - 14.14.26
-    - 14.14.28
-    - 14.14.30
-    - 15.0.0
-  - dependency-name: typescript
-    versions:
-    - 3.9.8
-    - 3.9.9
-  - dependency-name: "@types/hapi__hapi"
-    versions:
-    - 20.0.5
-  - dependency-name: tsutils
-    versions:
-    - 3.20.0
-  - dependency-name: "@hapi/hapi"
-    versions:
-    - 20.1.0
-  - dependency-name: "@types/lodash"
-    versions:
-    - 4.14.168
-  - dependency-name: "@types/jest"
-    versions:
-    - 26.0.20
-  - dependency-name: prettier
-    versions:
-    - 2.2.1
